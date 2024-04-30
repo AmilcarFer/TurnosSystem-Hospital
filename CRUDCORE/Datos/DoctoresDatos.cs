@@ -4,31 +4,30 @@ using System.Data;
 
 namespace CRUDCORE.Datos
 {
-    public class ContactoDatos
+    public class DoctoresDatos
     {
 
-        public List<ContactoModel> Listar() { 
+        public List<DoctoresModel> ListarD() { 
         
-            var oLista = new List<ContactoModel>();
+            var oLista = new List<DoctoresModel>();
 
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL())) { 
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("sp_Listar", conexion);
+                SqlCommand cmd = new SqlCommand("sp_ListarD", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader()) {
 
                     while (dr.Read()) {
-                        oLista.Add(new ContactoModel() {
-                            IdContacto = Convert.ToInt32(dr["IdContacto"]),
+                        oLista.Add(new DoctoresModel() {
+                            Id = Convert.ToInt32(dr["Id"]),
                             Nombre = dr["Nombre"].ToString(),
                             Apellido = dr["Apellido"].ToString(),
                             Telefono = dr["Telefono"].ToString(),
-                            ObraSocial = dr["ObraSocial"].ToString(),
+                            Especialidad = dr["Especialidad"].ToString(),
                             DNI = dr["DNI"].ToString(),
-                            Area = dr["Area"].ToString()
                         });
 
                     }
@@ -38,18 +37,18 @@ namespace CRUDCORE.Datos
             return oLista;
         }
 
-        public ContactoModel Obtener(int IdContacto)
+        public DoctoresModel ObtenerD(int Id)
         {
 
-            var oContacto = new ContactoModel();
+            var oDoctores = new DoctoresModel();
 
             var cn = new Conexion();
 
             using (var conexion = new SqlConnection(cn.getCadenaSQL()))
             {
                 conexion.Open();
-                SqlCommand cmd = new SqlCommand("sp_Obtener", conexion);
-                cmd.Parameters.AddWithValue("IdContacto", IdContacto);
+                SqlCommand cmd = new SqlCommand("sp_ObtenerD", conexion);
+                cmd.Parameters.AddWithValue("Id", Id);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 using (var dr = cmd.ExecuteReader())
@@ -57,21 +56,20 @@ namespace CRUDCORE.Datos
 
                     while (dr.Read())
                     {
-                        oContacto.IdContacto = Convert.ToInt32(dr["IdContacto"]);
-                        oContacto.Nombre = dr["Nombre"].ToString();
-                        oContacto.Apellido = dr["Apellido"].ToString();
-                        oContacto.Telefono = dr["Telefono"].ToString();
-                        oContacto.ObraSocial = dr["ObraSocial"].ToString();
-                        oContacto.DNI = dr["DNI"].ToString();
-                        oContacto.Area = dr["Area"].ToString();
+                        oDoctores.Id = Convert.ToInt32(dr["Id"]);
+                        oDoctores.Nombre = dr["Nombre"].ToString();
+                        oDoctores.Apellido = dr["Apellido"].ToString();
+                        oDoctores.Telefono = dr["Telefono"].ToString();
+                        oDoctores.Especialidad = dr["Especialidad"].ToString();
+                        oDoctores.DNI = dr["DNI"].ToString();
                     }
                 }
             }
 
-            return oContacto;
+            return oDoctores;
         }
 
-        public bool Guardar(ContactoModel ocontacto) {
+        public bool GuardarD(DoctoresModel odoctores) {
             bool rpta;
 
             try
@@ -81,13 +79,12 @@ namespace CRUDCORE.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("sp_Guardar", conexion);
-                    cmd.Parameters.AddWithValue("Nombre", ocontacto.Nombre);
-                    cmd.Parameters.AddWithValue("Apellido", ocontacto.Apellido);
-                    cmd.Parameters.AddWithValue("Telefono", ocontacto.Telefono);
-                    cmd.Parameters.AddWithValue("ObraSocial", ocontacto.ObraSocial);
-                    cmd.Parameters.AddWithValue("DNI", ocontacto.DNI);
-                    cmd.Parameters.AddWithValue("Area", ocontacto.Area);
+                    SqlCommand cmd = new SqlCommand("sp_GuardarD", conexion);
+                    cmd.Parameters.AddWithValue("Nombre", odoctores.Nombre);
+                    cmd.Parameters.AddWithValue("Apellido", odoctores.Apellido);
+                    cmd.Parameters.AddWithValue("Telefono", odoctores.Telefono);
+                    cmd.Parameters.AddWithValue("Especialidad", odoctores.Especialidad);
+                    cmd.Parameters.AddWithValue("DNI", odoctores.DNI);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -107,7 +104,7 @@ namespace CRUDCORE.Datos
         }
 
 
-        public bool Editar(ContactoModel ocontacto)
+        public bool EditarD(DoctoresModel oDoctores)
         {
             bool rpta;
 
@@ -118,14 +115,13 @@ namespace CRUDCORE.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("sp_Editar", conexion);
-                    cmd.Parameters.AddWithValue("IdContacto", ocontacto.IdContacto);
-                    cmd.Parameters.AddWithValue("Nombre", ocontacto.Nombre);
-                    cmd.Parameters.AddWithValue("Apellido", ocontacto.Apellido);
-                    cmd.Parameters.AddWithValue("Telefono", ocontacto.Telefono);
-                    cmd.Parameters.AddWithValue("ObraSocial", ocontacto.ObraSocial);
-                    cmd.Parameters.AddWithValue("DNI", ocontacto.DNI);
-                    cmd.Parameters.AddWithValue("Area", ocontacto.Area);
+                    SqlCommand cmd = new SqlCommand("sp_EditarD", conexion);
+                    cmd.Parameters.AddWithValue("Id", oDoctores.Id);
+                    cmd.Parameters.AddWithValue("Nombre", oDoctores.Nombre);
+                    cmd.Parameters.AddWithValue("Apellido", oDoctores.Apellido);
+                    cmd.Parameters.AddWithValue("Telefono", oDoctores.Telefono);
+                    cmd.Parameters.AddWithValue("ObraSocial", oDoctores.Especialidad);
+                    cmd.Parameters.AddWithValue("DNI", oDoctores.DNI);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }
@@ -142,7 +138,7 @@ namespace CRUDCORE.Datos
             return rpta;
         }
 
-        public bool Eliminar(int IdContacto)
+        public bool EliminarD(int Id)
         {
             bool rpta;
 
@@ -153,8 +149,8 @@ namespace CRUDCORE.Datos
                 using (var conexion = new SqlConnection(cn.getCadenaSQL()))
                 {
                     conexion.Open();
-                    SqlCommand cmd = new SqlCommand("sp_Eliminar", conexion);
-                    cmd.Parameters.AddWithValue("IdContacto", IdContacto);
+                    SqlCommand cmd = new SqlCommand("sp_EliminarD", conexion);
+                    cmd.Parameters.AddWithValue("Id", Id);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
                 }

@@ -1,4 +1,4 @@
-﻿@model PacientesModel
+﻿@model DoctoresModel
 @{
     ViewData["Title"] = "Editar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,14 +7,14 @@
 
 <div class="card">
   <div class="card-header">
-    Editar Contacto
+    Editar Datos de los Doctores
   </div>
   <div class="card-body">
     
 
-      <form asp-action="Editar" asp-controller="Mantenedor" method="post">
+      <form asp-action="EditarD" asp-controller="MantenedorD" method="post">
 
-           <input asp-for="IdContacto" type="hidden" class="form-control">
+           <input asp-for="Id" type="hidden" class="form-control">
       <div class="mb-3">
         <label class="form-label">Nombre</label>
         <input asp-for="Nombre" type="text" class="form-control">
@@ -31,27 +31,20 @@
         <span asp-validation-for="Telefono" class="text-danger"></span>
       </div>
             <div class="mb-3">
-                <label class="form-label">ObraSocial</label>
-                <input asp-for="ObraSocial" type="text" class="form-control">
-                <span asp-validation-for="ObraSocial" class="text-danger"></span>
+                <label class="form-label">Especialidad</label>
+                <input asp-for="Especialidad" type="text" class="form-control">
+                <span asp-validation-for="Especialidad" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label">DNI</label>
                 <input asp-for="DNI" type="text" class="form-control">
                 <span asp-validation-for="DNI" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Area</label>
-                <input asp-for="Area" type="text" class="form-control">
-                <span asp-validation-for="Area" class="text-danger"></span>
-            </div>
       <button type="submit" class="btn btn-success">Guardar</button>
-      <a asp-action="Listar" asp-controller="Mantenedor" class="btn btn-info">Volver a la lista</a>
+            <a asp-action="ListarD" asp-controller="MantenedorD" class="btn btn-Danger">Volver a la lista</a>
     </form>
 
 
   </div>
 </div>
-
-
 

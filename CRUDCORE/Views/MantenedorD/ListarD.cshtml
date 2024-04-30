@@ -1,4 +1,4 @@
-﻿@model List<PacientesModel>
+﻿@model List<DoctoresModel>
 @{
     ViewData["Title"] = "Listar";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,10 +8,10 @@
 
 <div class="card">
   <div class="card-header">
-    Lista de Pacientes
+    Lista de Doctores
   </div>
   <div class="card-body">
-    <a asp-action="Guardar" asp-controller="Mantenedor" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
+    <a asp-action="GuardarD" asp-controller="MantenedorD" class="btn btn-success"><i class="bi bi-plus-circle"></i> Crear Nuevo</a>
     <hr />
     <table class="table table-bordered">
         <thead>
@@ -19,9 +19,8 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Telefono</th>
-                <th>ObraSocial</th>
+                <th>Especialidad</th>
                 <th>DNI</th>
-                <th>Area</th>
             </tr>
         </thead>
         <tbody>
@@ -31,12 +30,11 @@
                         <td>@item.Nombre</td>
                         <td>@item.Apellido</td>
                         <td>@item.Telefono</td>
-                        <td>@item.ObraSocial</td>
+                        <td>@item.Especialidad</td>
                         <td>@item.DNI</td>
-                        <td>@item.Area</td>
                         <td>
-                             <a asp-action="Editar" asp-controller="Mantenedor" class="btn btn-primary btn-sm" asp-route-IdContacto="@item.IdContacto" >Editar</a>
-                             <a asp-action="Eliminar" asp-controller="Mantenedor" class="btn btn-danger btn-sm" asp-route-IdContacto="@item.IdContacto" >Eliminar</a>
+                             <a asp-action="EditarD" asp-controller="MantenedorD" class="btn btn-primary btn-sm" asp-route-Id="@item.Id" >Editar</a>
+                             <a asp-action="EliminarD" asp-controller="MantenedorD" class="btn btn-danger btn-sm" asp-route-Id="@item.Id" >Eliminar</a>
                         </td>
                     </tr>
 
