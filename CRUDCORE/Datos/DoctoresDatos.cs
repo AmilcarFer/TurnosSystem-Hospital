@@ -120,7 +120,7 @@ namespace CRUDCORE.Datos
                     cmd.Parameters.AddWithValue("Nombre", oDoctores.Nombre);
                     cmd.Parameters.AddWithValue("Apellido", oDoctores.Apellido);
                     cmd.Parameters.AddWithValue("Telefono", oDoctores.Telefono);
-                    cmd.Parameters.AddWithValue("ObraSocial", oDoctores.Especialidad);
+                    cmd.Parameters.AddWithValue("Especialidad", oDoctores.Especialidad);
                     cmd.Parameters.AddWithValue("DNI", oDoctores.DNI);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.ExecuteNonQuery();
